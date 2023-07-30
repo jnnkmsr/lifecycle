@@ -33,8 +33,7 @@ import kotlin.coroutines.EmptyCoroutineContext
  * in `this` [ViewModel]'s [viewModelScope]. Delegates to [shareIn] using the
  * [viewModelScope] together with the given [context].
  *
- * @param started The strategy that controls when sharing is started and
- *   stopped.
+ * @param started The strategy that controls when sharing is started and stopped.
  * @param context [CoroutineContext] that is added to the [viewModelScope]
  *   in which sharing is started. Defaults to [EmptyCoroutineContext].
  * @param replay The number values replayed to new subscribers (cannot be
@@ -62,8 +61,7 @@ public fun <T> ViewModel.share(
  *   also used when the state flow is reset using the
  *   [SharingStarted.WhileSubscribed] strategy with the
  *   `replayExpirationMillis` parameter.
- * @param started The strategy that controls when sharing is started and
- *   stopped.
+ * @param started The strategy that controls when sharing is started and stopped.
  * @param context [CoroutineContext] that is added to the [viewModelScope]
  *   in which sharing is started. Defaults to [EmptyCoroutineContext].
  *
