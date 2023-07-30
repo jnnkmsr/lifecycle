@@ -23,5 +23,5 @@ plugins {
 
 subprojects {
     group = "com.github.jnnkmsr.lifecycle"
-    version = "0.1.3-alpha"
+    version = "0.1.4-alpha"
 }
