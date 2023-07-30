@@ -28,7 +28,7 @@ android {
     defaultConfig {
         applicationId = "com.github.jnnkmsr.lifecycle.sample"
         versionCode = 1
-        versionName = libs.versions.published.get()
+        versionName = version.toString()
 
         minSdk = 28
         targetSdk = 34

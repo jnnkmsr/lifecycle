@@ -60,9 +60,6 @@ android {
     }
 }
 
-group = "com.github.jnnkmsr.lifecycle"
-version = libs.versions.published.get()
-
 afterEvaluate {
     publishing {
         publications {
