@@ -76,4 +76,5 @@ dependencies {
     api(libs.android.lifecycle)
     api(libs.android.lifecycle.viewmodel)
     api(libs.android.lifecycle.viewmodel.savedstate)
+    implementation(libs.extension.kotlin.coroutines)
 }
