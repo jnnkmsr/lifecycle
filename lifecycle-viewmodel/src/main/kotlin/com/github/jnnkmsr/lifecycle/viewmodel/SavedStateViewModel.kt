@@ -24,10 +24,13 @@ import com.github.jnnkmsr.lifecycle.flow.MutableSavedStateFlow
 import com.github.jnnkmsr.lifecycle.flow.mutableSavedStateFlow
 import com.github.jnnkmsr.lifecycle.flow.savedStateFlow
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.plus
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
@@ -123,6 +126,46 @@ public abstract class SavedStateViewModel : ViewModel() {
             scope = viewModelScope + context,
             started = started,
         )
+
+    /**
+     * Converts `this` _cold_ [Flow] into a _hot_ [SharedFlow] that is started
+     * in `this` [ViewModel]'s [viewModelScope]. Delegates to [shareIn] using the
+     * [viewModelScope] together with the given [context].
+     *
+     * @param started The strategy that controls when sharing is started and stopped.
+     * @param context [CoroutineContext] that is added to the [viewModelScope]
+     *   in which sharing is started. Defaults to [EmptyCoroutineContext].
+     * @param replay The number values replayed to new subscribers (cannot be
+     *   negative; defaults to zero).
+     *
+     * @see shareIn
+     */
+    public fun <T> Flow<T>.share(
+        started: SharingStarted = SharingStarted.WhileSubscribed(),
+        context: CoroutineContext = EmptyCoroutineContext,
+        replay: Int = 0,
+    ): SharedFlow<T> = share(this, started, context, replay)
+
+    /**
+     * Converts `this` _cold_ [Flow] into a _hot_ [StateFlow] that is started
+     * in `this` [ViewModel]'s [viewModelScope]. Delegates to [stateIn] using the
+     * [viewModelScope] together with the given [context].
+     *
+     * @param initialValue The initial value of the [StateFlow]. This value is
+     *   also used when the state flow is reset using the
+     *   [SharingStarted.WhileSubscribed] strategy with the
+     *   `replayExpirationMillis` parameter.
+     * @param started The strategy that controls when sharing is started and stopped.
+     * @param context [CoroutineContext] that is added to the [viewModelScope]
+     *   in which sharing is started. Defaults to [EmptyCoroutineContext].
+     *
+     * @see stateIn
+     */
+    public fun <T> Flow<T>.state(
+        initialValue: T,
+        started: SharingStarted = SharingStarted.WhileSubscribed(),
+        context: CoroutineContext = EmptyCoroutineContext,
+    ): StateFlow<T> = state(this, initialValue, started, context)
 }
 
 /**
