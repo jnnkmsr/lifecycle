@@ -50,7 +50,7 @@ public interface SavedStateViewModel {
      * The default [CoroutineScope] used by this viewmodel. Typically, this will
      * be [viewModelScope] of implementing [ViewModel].
      */
-    @get:RestrictTo(Scope.SUBCLASSES, Scope.LIBRARY)
+    @get:RestrictTo(Scope.SUBCLASSES)
     public val coroutineScope: CoroutineScope
 
 
@@ -58,7 +58,7 @@ public interface SavedStateViewModel {
      * The [SavedStateHandle] instance, typically, obtained by constructor
      * injection.
      */
-    @get:RestrictTo(Scope.SUBCLASSES, Scope.LIBRARY)
+    @get:RestrictTo(Scope.SUBCLASSES)
     public val savedStateHandle: SavedStateHandle
 
     /**
