@@ -32,7 +32,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Lifecycle"
+rootProject.name = "LifecycleLibraries"
 include(":sample")
 include(":lifecycle-flow")
 include(":lifecycle-viewmodel")
