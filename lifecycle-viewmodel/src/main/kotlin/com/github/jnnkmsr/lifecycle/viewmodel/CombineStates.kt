@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
+@file:SuppressLint("RestrictedApi")
+
 package com.github.jnnkmsr.lifecycle.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.annotation.SuppressLint
 import com.github.jnnkmsr.kotlin.flow.combineStatesIn
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -28,19 +29,22 @@ import kotlin.coroutines.EmptyCoroutineContext
 /**
  * Returns a [StateFlow] whose values are generated with [transform] function
  * by combining the most recently emitted values by each of the given
- * [StateFlow]s. The returned flow is started in `this` [ViewModel]'s
- * [viewModelScope], adding the given [context].
+ * [StateFlow]s. The returned flow is started in `this` [SavedStateViewModel]'s
+ * default [coroutineScope][SavedStateViewModel.coroutineScope], adding the
+ * given [context].
  *
  * @param flow1 A [StateFlow] to be combined.
  * @param flow2 A [StateFlow] to be combined.
  * @param started The strategy that controls when sharing is started and stopped.
  *   Defaults to [SharingStarted.WhileSubscribed].
- * @param context [CoroutineContext] that is added to the [viewModelScope]
- *   in which sharing is started. Defaults to [EmptyCoroutineContext].
+ * @param context Optional [CoroutineContext] that is added to `this`
+ *   view model's default [coroutineScope][SavedStateViewModel.coroutineScope],
+ *   to provide the scope in which sharing is started. Defaults to
+ *   [EmptyCoroutineContext].
  * @param transform The transform to apply to combine the most recent values of
  *   the original [flows][flow1].
  */
-public fun <T1, T2, R> ViewModel.combineStates(
+public fun <T1, T2, R> SavedStateViewModel.combineStates(
     flow1: StateFlow<T1>,
     flow2: StateFlow<T2>,
     started: SharingStarted = SharingStarted.WhileSubscribed(),
@@ -49,7 +53,7 @@ public fun <T1, T2, R> ViewModel.combineStates(
 ): StateFlow<R> = combineStatesIn(
     flow1 = flow1,
     flow2 = flow2,
-    scope = viewModelScope + context,
+    scope = coroutineScope + context,
     started = started,
     transform = transform,
 )
@@ -57,20 +61,23 @@ public fun <T1, T2, R> ViewModel.combineStates(
 /**
  * Returns a [StateFlow] whose values are generated with [transform] function
  * by combining the most recently emitted values by each of the given
- * [StateFlow]s. The returned flow is started in `this` [ViewModel]'s
- * [viewModelScope], adding the given [context].
+ * [StateFlow]s. The returned flow is started in `this` [SavedStateViewModel]'s
+ * default [coroutineScope][SavedStateViewModel.coroutineScope], adding the
+ * given [context].
  *
  * @param flow1 A [StateFlow] to be combined.
  * @param flow2 A [StateFlow] to be combined.
  * @param flow3 A [StateFlow] to be combined.
  * @param started The strategy that controls when sharing is started and stopped.
  *   Defaults to [SharingStarted.WhileSubscribed].
- * @param context [CoroutineContext] that is added to the [viewModelScope]
- *   in which sharing is started. Defaults to [EmptyCoroutineContext].
+ * @param context Optional [CoroutineContext] that is added to `this`
+ *   view model's default [coroutineScope][SavedStateViewModel.coroutineScope],
+ *   to provide the scope in which sharing is started. Defaults to
+ *   [EmptyCoroutineContext].
  * @param transform The transform to apply to combine the most recent values of
  *   the original [flows][flow1].
  */
-public fun <T1, T2, T3, R> ViewModel.combineStates(
+public fun <T1, T2, T3, R> SavedStateViewModel.combineStates(
     flow1: StateFlow<T1>,
     flow2: StateFlow<T2>,
     flow3: StateFlow<T3>,
@@ -81,7 +88,7 @@ public fun <T1, T2, T3, R> ViewModel.combineStates(
     flow1 = flow1,
     flow2 = flow2,
     flow3 = flow3,
-    scope = viewModelScope + context,
+    scope = coroutineScope + context,
     started = started,
     transform = transform,
 )
@@ -89,8 +96,9 @@ public fun <T1, T2, T3, R> ViewModel.combineStates(
 /**
  * Returns a [StateFlow] whose values are generated with [transform] function
  * by combining the most recently emitted values by each of the given
- * [StateFlow]s. The returned flow is started in `this` [ViewModel]'s
- * [viewModelScope], adding the given [context].
+ * [StateFlow]s. The returned flow is started in `this` [SavedStateViewModel]'s
+ * default [coroutineScope][SavedStateViewModel.coroutineScope], adding the
+ * given [context].
  *
  * @param flow1 A [StateFlow] to be combined.
  * @param flow2 A [StateFlow] to be combined.
@@ -98,12 +106,14 @@ public fun <T1, T2, T3, R> ViewModel.combineStates(
  * @param flow4 A [StateFlow] to be combined.
  * @param started The strategy that controls when sharing is started and stopped.
  *   Defaults to [SharingStarted.WhileSubscribed].
- * @param context [CoroutineContext] that is added to the [viewModelScope]
- *   in which sharing is started. Defaults to [EmptyCoroutineContext].
+ * @param context Optional [CoroutineContext] that is added to `this`
+ *   view model's default [coroutineScope][SavedStateViewModel.coroutineScope],
+ *   to provide the scope in which sharing is started. Defaults to
+ *   [EmptyCoroutineContext].
  * @param transform The transform to apply to combine the most recent values of
  *   the original [flows][flow1].
  */
-public fun <T1, T2, T3, T4, R> ViewModel.combineStates(
+public fun <T1, T2, T3, T4, R> SavedStateViewModel.combineStates(
     flow1: StateFlow<T1>,
     flow2: StateFlow<T2>,
     flow3: StateFlow<T3>,
@@ -116,7 +126,7 @@ public fun <T1, T2, T3, T4, R> ViewModel.combineStates(
     flow2 = flow2,
     flow3 = flow3,
     flow4 = flow4,
-    scope = viewModelScope + context,
+    scope = coroutineScope + context,
     started = started,
     transform = transform,
 )
@@ -124,8 +134,9 @@ public fun <T1, T2, T3, T4, R> ViewModel.combineStates(
 /**
  * Returns a [StateFlow] whose values are generated with [transform] function
  * by combining the most recently emitted values by each of the given
- * [StateFlow]s. The returned flow is started in `this` [ViewModel]'s
- * [viewModelScope], adding the given [context].
+ * [StateFlow]s. The returned flow is started in `this` [SavedStateViewModel]'s
+ * default [coroutineScope][SavedStateViewModel.coroutineScope], adding the
+ * given [context].
  *
  * @param flow1 A [StateFlow] to be combined.
  * @param flow2 A [StateFlow] to be combined.
@@ -134,12 +145,14 @@ public fun <T1, T2, T3, T4, R> ViewModel.combineStates(
  * @param flow5 A [StateFlow] to be combined.
  * @param started The strategy that controls when sharing is started and stopped.
  *   Defaults to [SharingStarted.WhileSubscribed].
- * @param context [CoroutineContext] that is added to the [viewModelScope]
- *   in which sharing is started. Defaults to [EmptyCoroutineContext].
+ * @param context Optional [CoroutineContext] that is added to `this`
+ *   view model's default [coroutineScope][SavedStateViewModel.coroutineScope],
+ *   to provide the scope in which sharing is started. Defaults to
+ *   [EmptyCoroutineContext].
  * @param transform The transform to apply to combine the most recent values of
  *   the original [flows][flow1].
  */
-public fun <T1, T2, T3, T4, T5, R> ViewModel.combineStates(
+public fun <T1, T2, T3, T4, T5, R> SavedStateViewModel.combineStates(
     flow1: StateFlow<T1>,
     flow2: StateFlow<T2>,
     flow3: StateFlow<T3>,
@@ -154,7 +167,7 @@ public fun <T1, T2, T3, T4, T5, R> ViewModel.combineStates(
     flow3 = flow3,
     flow4 = flow4,
     flow5 = flow5,
-    scope = viewModelScope + context,
+    scope = coroutineScope + context,
     started = started,
     transform = transform,
 )
@@ -162,25 +175,28 @@ public fun <T1, T2, T3, T4, T5, R> ViewModel.combineStates(
 /**
  * Returns a [StateFlow] whose values are generated with [transform] function
  * by combining the most recently emitted values by each of the given
- * [StateFlow]s. The returned flow is started in `this` [ViewModel]'s
- * [viewModelScope], adding the given [context].
+ * [StateFlow]s. The returned flow is started in `this` [SavedStateViewModel]'s
+ * default [coroutineScope][SavedStateViewModel.coroutineScope], adding the
+ * given [context].
  *
  * @param flows The [StateFlow]s to be combined.
  * @param started The strategy that controls when sharing is started and stopped.
  *   Defaults to [SharingStarted.WhileSubscribed].
- * @param context [CoroutineContext] that is added to the [viewModelScope]
- *   in which sharing is started. Defaults to [EmptyCoroutineContext].
+ * @param context Optional [CoroutineContext] that is added to `this`
+ *   view model's default [coroutineScope][SavedStateViewModel.coroutineScope],
+ *   to provide the scope in which sharing is started. Defaults to
+ *   [EmptyCoroutineContext].
  * @param transform The transform to apply to combine the most recent values of
  *   the original [flows].
  */
-public inline fun <reified T, R> ViewModel.combineStates(
+public inline fun <reified T, R> SavedStateViewModel.combineStates(
     vararg flows: StateFlow<T>,
     started: SharingStarted = SharingStarted.WhileSubscribed(),
     context: CoroutineContext = EmptyCoroutineContext,
     crossinline transform: (Array<T>) -> R,
 ): StateFlow<R> = combineStatesIn(
     *flows,
-    scope = viewModelScope + context,
+    scope = coroutineScope + context,
     started = started,
     transform = transform,
 )
